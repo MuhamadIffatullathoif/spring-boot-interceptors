@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,13 +16,14 @@ public class LoadingTimeInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("Loading time interceptor preHandle()");
+        HandlerMethod method = (HandlerMethod) handler;
+        logger.info("Loading time interceptor preHandle() " + method.getMethod().getName());
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        logger.info("Loading time interceptor postHandle()");
+        logger.info("Loading time interceptor postHandle() "+ ((HandlerMethod) handler).getMethod().getName());
         HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
     }
 }
