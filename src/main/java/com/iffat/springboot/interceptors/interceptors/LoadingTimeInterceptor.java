@@ -1,5 +1,6 @@
 package com.iffat.springboot.interceptors.interceptors;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -9,6 +10,9 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 @Component("timeInterceptor")
@@ -28,6 +32,18 @@ public class LoadingTimeInterceptor implements HandlerInterceptor {
         Thread.sleep(delay);
 
         logger.info("Loading time interceptor preHandle() " + method.getMethod().getName());
+
+        /* Only when returning false to send response custom */
+//        Map<String, String> json = new HashMap<>();
+//        json.put("error", "You do not have access to this page");
+//        json.put("data", new Date().toString());
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        String jsonString = mapper.writeValueAsString(json);
+//        response.setContentType("application/json");
+//        response.setStatus(401);
+//        response.getWriter().write(jsonString);
+
         return true;
     }
 
